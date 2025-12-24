@@ -6,6 +6,9 @@ interface TutorState {
   // Current mode
   mode: LearningMode;
 
+  // Training mode
+  isTrainingMode: boolean;
+
   // Target letter to practice
   targetLetter: string;
 
@@ -27,6 +30,7 @@ interface TutorState {
 
   // Actions
   setMode: (mode: LearningMode) => void;
+  setTrainingMode: (isTraining: boolean) => void;
   setTargetLetter: (letter: string) => void;
   updatePrediction: (prediction: string, confidence: number) => void;
   markCorrect: () => void;
@@ -36,6 +40,7 @@ interface TutorState {
 
 export const useTutorStore = create<TutorState>((set, get) => ({
   mode: 'practice',
+  isTrainingMode: false,
   targetLetter: 'A',
   currentPrediction: null,
   currentConfidence: 0,
@@ -47,6 +52,15 @@ export const useTutorStore = create<TutorState>((set, get) => ({
   startTime: null,
 
   setMode: (mode) => set({ mode, correctCount: 0, totalAttempts: 0 }),
+
+  setTrainingMode: (isTraining) =>
+    set({
+      isTrainingMode: isTraining,
+      currentPrediction: null,
+      currentConfidence: 0,
+      isCorrect: false,
+      feedbackMessage: null
+    }),
 
   setTargetLetter: (letter) =>
     set({
