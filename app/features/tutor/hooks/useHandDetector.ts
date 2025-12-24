@@ -13,8 +13,11 @@ export function useHandDetector() {
 
     async function loadDetector() {
       try {
+        console.log('Initializing hand detector...');
+
         // Initialize TensorFlow.js backend first
         await initializeTensorFlow();
+        console.log('TensorFlow.js ready');
 
         // Create hand detector with MediaPipe
         const model = handPoseDetection.SupportedModels.MediaPipeHands;
@@ -25,6 +28,7 @@ export function useHandDetector() {
             modelType: 'full'
           };
 
+        console.log('Creating hand detector with config:', detectorConfig);
         const detector = await handPoseDetection.createDetector(
           model,
           detectorConfig
@@ -33,6 +37,7 @@ export function useHandDetector() {
         if (mounted) {
           detectorRef.current = detector;
           setIsLoading(false);
+          console.log('Hand detector initialized successfully');
         }
       } catch (err) {
         console.error('Failed to load hand detector:', err);
