@@ -1,8 +1,8 @@
-# Technical Requirements Document (TRD): SIBI Smart Tutor
+# Technical Requirements Document (TRD): Sign Language Tutor
 
 ## 1. System Overview
 
-**SIBI Smart Tutor** is a Single Page Application (SPA) that performs heavy client-side computation. The core logic involves capturing a video stream, running a computer vision model to extract hand landmarks, and passing those landmarks to a secondary classifier to identify SIBI alphabets.
+**Sign Language Tutor** is a Single Page Application (SPA) that performs heavy client-side computation. The core logic involves capturing a video stream, running a computer vision model to extract hand landmarks, and passing those landmarks to a secondary classifier to identify sign language gestures (e.g., ASL, SIBI, BISINDO alphabets).
 
 ## 2. Technology Stack & Dependencies
 
@@ -72,7 +72,7 @@ src/
 │   │       ├── drawUtils.ts       # Canvas drawing helpers
 │   │       └── geometry.ts        # Angle calculations
 │   ├── dashboard/                 # Progress tracking
-│   └── dictionary/                # Static SIBI reference
+│   └── dictionary/                # Static sign language reference
 ├── lib/
 │   ├── tensorflow.ts              # Singleton TF backend initialization
 │   └── utils.ts                   # cn() helper

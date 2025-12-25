@@ -19,13 +19,17 @@ export function FeedbackCard() {
     <div className="flex flex-col gap-4 p-6 bg-white dark:bg-zinc-900 rounded-lg border">
       {/* Letter Selector */}
       <div>
-        <h3 className="text-sm font-medium mb-2">Select Letter to Practice</h3>
+        <h3 className="text-sm font-medium mb-2">
+          Select Letter to Practice
+        </h3>
         <div className="grid grid-cols-13 gap-1">
           {ALPHABET.map((letter) => (
             <Button
               key={letter}
               size="sm"
-              variant={letter === targetLetter ? 'default' : 'outline'}
+              variant={
+                letter === targetLetter ? 'default' : 'outline'
+              }
               onClick={() => setTargetLetter(letter)}
               className="h-8 w-8 p-0 text-xs"
             >
@@ -44,7 +48,7 @@ export function FeedbackCard() {
           {targetLetter}
         </div>
         <div className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-          SIBI Sign Language - {targetLetter}
+          Sign: {targetLetter}
         </div>
       </div>
 
@@ -70,7 +74,8 @@ export function FeedbackCard() {
         ) : (
           <div className="text-center">
             <div className="text-sm text-zinc-600 dark:text-zinc-300">
-              Current: <span className="font-bold">{currentPrediction}</span>
+              Current:{' '}
+              <span className="font-bold">{currentPrediction}</span>
             </div>
             <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
               Confidence: {Math.round(currentConfidence * 100)}%

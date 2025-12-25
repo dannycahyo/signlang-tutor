@@ -22,7 +22,7 @@ type TutorAction = { type: 'TOGGLE_MODE' };
 
 function tutorReducer(
   state: TutorPageState,
-  action: TutorAction
+  action: TutorAction,
 ): TutorPageState {
   switch (action.type) {
     case 'TOGGLE_MODE':
@@ -56,13 +56,16 @@ export default function TutorPage() {
       if (!classifier.isReady) return;
 
       try {
-        const classifierRef = (classifier as any).classifierRef?.current;
+        const classifierRef = (classifier as any).classifierRef
+          ?.current;
         if (!classifierRef) return;
 
         await loadClassifier(classifierRef);
         const totalSamples = classifier.getTotalSamples();
         if (totalSamples > 0) {
-          toast.success(`Loaded classifier with ${totalSamples} samples`);
+          toast.success(
+            `Loaded classifier with ${totalSamples} samples`,
+          );
         }
       } catch (error) {
         console.log('No saved classifier found');
@@ -72,24 +75,28 @@ export default function TutorPage() {
     loadSavedClassifier();
   }, [classifier.isReady]);
 
-  const handleLandmarksUpdate = useCallback((landmarks: Hand | null) => {
-    currentLandmarksRef.current = landmarks;
+  const handleLandmarksUpdate = useCallback(
+    (landmarks: Hand | null) => {
+      currentLandmarksRef.current = landmarks;
 
-    // Debug: log when landmarks are updated
-    if (landmarks && frameCountRef.current % 120 === 0) {
-      console.log('Landmarks updated in parent:', {
-        hasKeypoints: !!landmarks.keypoints,
-        keypointsCount: landmarks.keypoints?.length
-      });
-    }
-    frameCountRef.current = (frameCountRef.current || 0) + 1;
-  }, []);
+      // Debug: log when landmarks are updated
+      if (landmarks && frameCountRef.current % 120 === 0) {
+        console.log('Landmarks updated in parent:', {
+          hasKeypoints: !!landmarks.keypoints,
+          keypointsCount: landmarks.keypoints?.length,
+        });
+      }
+      frameCountRef.current = (frameCountRef.current || 0) + 1;
+    },
+    [],
+  );
 
   const frameCountRef = useRef(0);
 
   const handleExport = async () => {
     try {
-      const classifierRef = (classifier as any).classifierRef?.current;
+      const classifierRef = (classifier as any).classifierRef
+        ?.current;
       if (!classifierRef) {
         toast.error('No classifier to export');
         return;
@@ -106,12 +113,15 @@ export default function TutorPage() {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     try {
-      const classifierRef = (classifier as any).classifierRef?.current;
+      const classifierRef = (classifier as any).classifierRef
+        ?.current;
       if (!classifierRef) {
         toast.error('Classifier not ready');
         return;
@@ -139,7 +149,7 @@ export default function TutorPage() {
 
     if (state.mode === 'training' && totalSamples < 30) {
       toast.warning(
-        'Recommended: 10+ samples per letter for best results'
+        'Recommended: 10+ samples per letter for best results',
       );
     }
 
@@ -153,23 +163,28 @@ export default function TutorPage() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
-              SIBI Smart Tutor
+              Sign Language Tutor
             </h1>
             <p className="text-zinc-600 dark:text-zinc-400">
-              Learn Indonesian Sign Language (SIBI) with real-time hand detection
+              Learn sign language with real-time hand detection and
+              feedback
             </p>
           </div>
 
           {/* Mode Toggle */}
           <div className="flex gap-2">
             <Button
-              variant={state.mode === 'training' ? 'default' : 'outline'}
+              variant={
+                state.mode === 'training' ? 'default' : 'outline'
+              }
               onClick={handleToggleMode}
             >
               Training Mode
             </Button>
             <Button
-              variant={state.mode === 'practice' ? 'default' : 'outline'}
+              variant={
+                state.mode === 'practice' ? 'default' : 'outline'
+              }
               onClick={handleToggleMode}
             >
               Practice Mode

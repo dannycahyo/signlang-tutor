@@ -1,5 +1,5 @@
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+import logoDark from './logo-dark.svg';
+import logoLight from './logo-light.svg';
 
 export function Welcome() {
   return (
@@ -48,8 +48,8 @@ export function Welcome() {
 
 const resources = [
   {
-    href: "/tutor",
-    text: "Start Learning SIBI",
+    href: '/tutor',
+    text: 'Start Learning',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -69,8 +69,8 @@ const resources = [
     ),
   },
   {
-    href: "https://reactrouter.com/docs",
-    text: "React Router Docs",
+    href: 'https://reactrouter.com/docs',
+    text: 'React Router Docs',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -89,8 +89,8 @@ const resources = [
     ),
   },
   {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
+    href: 'https://rmx.as/discord',
+    text: 'Join Discord',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

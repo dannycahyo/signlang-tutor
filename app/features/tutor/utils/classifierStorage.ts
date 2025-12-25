@@ -1,6 +1,6 @@
 import * as knnClassifier from '@tensorflow-models/knn-classifier';
 
-const STORAGE_KEY = 'sibi-tutor-classifier';
+const STORAGE_KEY = 'signlang-tutor-classifier';
 
 export async function saveClassifier(
   classifier: knnClassifier.KNNClassifier
@@ -78,7 +78,7 @@ export async function exportClassifier(
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `sibi-classifier-${Date.now()}.json`;
+    a.download = `signlang-classifier-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   } catch (error) {
