@@ -10,14 +10,24 @@ export function useHandDetector() {
 
   useEffect(() => {
     let mounted = true;
+    let initTimeout: NodeJS.Timeout;
 
     async function loadDetector() {
       try {
         console.log('Initializing hand detector...');
 
+        // Add delay for client-side navigation to prevent MediaPipe WASM conflicts
+        await new Promise((resolve) => {
+          initTimeout = setTimeout(resolve, 300);
+        });
+
+        if (!mounted) return;
+
         // Initialize TensorFlow.js backend first
         await initializeTensorFlow();
         console.log('TensorFlow.js ready');
+
+        if (!mounted) return;
 
         // Create hand detector with MediaPipe
         const model = handPoseDetection.SupportedModels.MediaPipeHands;
@@ -38,6 +48,8 @@ export function useHandDetector() {
           detectorRef.current = detector;
           setIsLoading(false);
           console.log('Hand detector initialized successfully');
+        } else {
+          detector.dispose();
         }
       } catch (err) {
         console.error('Failed to load hand detector:', err);
@@ -54,8 +66,10 @@ export function useHandDetector() {
 
     return () => {
       mounted = false;
+      clearTimeout(initTimeout);
       if (detectorRef.current) {
         detectorRef.current.dispose();
+        detectorRef.current = null;
       }
     };
   }, []);
